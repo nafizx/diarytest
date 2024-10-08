@@ -13,7 +13,6 @@ app.get('/', (req, res) => res.send('Hello World!'));
 app.get("/test", async (req, res) => {
     let cls = req.query.class;
     const subject = req.query.subject;
-    const teacher = req.query.teacher;
     const cw = req.query.cw;
     const hw = req.query.hw;
     const remark = req.query.remarks;
@@ -29,10 +28,9 @@ app.get("/test", async (req, res) => {
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
 
-    // Fill in the text fields with proper alignment
     ctx.fillText(cls, 448, 736);
     ctx.fillText(subject, 498, 867);
-    ctx.fillText(teacher, 691, 994);
+    ctx.fillText("Nabila Tabassum", 691, 994); // Fixed Class Teacher name
     ctx.fillText(cw, 264, 1220);
     ctx.fillText(hw, 264, 1628);
     ctx.fillText(remark, 264, 1860);
@@ -43,11 +41,11 @@ app.get("/test", async (req, res) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
-    // Use periods instead of hyphens
+    // Replace '-' with '.'
     const date = `${day}.${month}.${year}`;
     const dayName = currentDate.toLocaleString('en-US', { weekday: 'long' });
 
-    // Add the date text with proper formatting and alignment
+    // Update the date text with the current date and day name
     ctx.fillText(`Date: ${date} (${dayName})`, 1793, 736);
 
     // Now apply cropping to the canvas
