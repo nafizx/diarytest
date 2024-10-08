@@ -1,5 +1,5 @@
 const { createCanvas, registerFont, loadImage, Image } = require("canvas");
-const express =  require("express");
+const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
@@ -10,14 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-app.get("/test", async(req, res) => {
+app.get("/test", async (req, res) => {
     let cls = req.query.class;
     const subject = req.query.subject;
     const teacher = req.query.teacher;
     const cw = req.query.cw;
     const hw = req.query.hw;
     const remark = req.query.remarks;
-    
+
     const width = 2480;
     const height = 3508;
     const canvas = createCanvas(width, height);
@@ -25,10 +25,10 @@ app.get("/test", async(req, res) => {
 
     let bg = await loadImage("bg2.png");
     ctx.drawImage(bg, 0, 0, width, height);
-    
+
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
-    
+
     ctx.fillText(cls, 448, 736);
     ctx.fillText(subject, 498, 867);
     ctx.fillText(teacher, 691, 994);
@@ -42,12 +42,13 @@ app.get("/test", async(req, res) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
-    const date = `${day}-${month}-${year}`;
+    // Replace '-' with '.'
+    const date = `${day}.${month}.${year}`;
     const dayName = currentDate.toLocaleString('en-US', { weekday: 'long' });
 
     // Update the date text with the current date and day name
     ctx.fillText(`Date: ${date} (${dayName})`, 1793, 736);
-    
+
     // Now apply cropping to the canvas
     const cropHeight = (height / 5) * 3; // Cropping to 3/5 of the height
     const croppedCanvas = createCanvas(width, cropHeight);
