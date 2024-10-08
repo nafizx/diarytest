@@ -29,6 +29,7 @@ app.get("/test", async (req, res) => {
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
 
+    // Fill in the text fields with proper alignment
     ctx.fillText(cls, 448, 736);
     ctx.fillText(subject, 498, 867);
     ctx.fillText(teacher, 691, 994);
@@ -42,11 +43,11 @@ app.get("/test", async (req, res) => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
-    // Replace '-' with '.'
+    // Use periods instead of hyphens
     const date = `${day}.${month}.${year}`;
     const dayName = currentDate.toLocaleString('en-US', { weekday: 'long' });
 
-    // Update the date text with the current date and day name
+    // Add the date text with proper formatting and alignment
     ctx.fillText(`Date: ${date} (${dayName})`, 1793, 736);
 
     // Now apply cropping to the canvas
