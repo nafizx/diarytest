@@ -16,6 +16,8 @@ app.get("/test", async (req, res) => {
     const cw = req.query.cw;
     const hw = req.query.hw;
     const remark = req.query.remarks;
+    const teacher = req.query.teacher || "Nabila Tabassum"; // Default teacher's name if not provided
+    const dateInput = req.query.date; // Date provided by user
 
     const width = 2480;
     const height = 3508;
@@ -30,33 +32,35 @@ app.get("/test", async (req, res) => {
 
     ctx.fillText(cls, 448, 736);
     ctx.fillText(subject, 498, 867);
-    ctx.fillText("Nabila Tabassum", 691, 994); // Fixed Class Teacher name
+    ctx.fillText(teacher, 691, 994); // Teacher's name from query parameter
     ctx.fillText(cw, 264, 1220);
     ctx.fillText(hw, 264, 1628);
     ctx.fillText(remark, 264, 1860);
     ctx.textAlign = "center";
 
-    // Get the current date and day name
-    const currentDate = new Date();
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const year = currentDate.getFullYear();
-    // Replace '-' with '.'
-    const date = `${day}.${month}.${year}`;
-    const dayName = currentDate.toLocaleString('en-US', { weekday: 'long' });
+    // Use the provided date or default to current date if not specified
+    let dateText;
+    if (dateInput) {
+        dateText = `Date: ${dateInput}`;
+    } else {
+        const currentDate = new Date();
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        const dayName = currentDate.toLocaleString('en-US', { weekday: 'long' });
+        dateText = `Date: ${day}.${month}.${year} (${dayName})`;
+    }
 
-    // Update the date text with the current date and day name
-    ctx.fillText(`Date: ${date} (${dayName})`, 1793, 736);
+    ctx.fillText(dateText, 1793, 736);
 
-    // Now apply cropping to the canvas
-    const cropHeight = (height / 5) * 3; // Cropping to 3/5 of the height
+    // Crop canvas to 3/5 of height
+    const cropHeight = (height / 5) * 3;
     const croppedCanvas = createCanvas(width, cropHeight);
     const croppedCtx = croppedCanvas.getContext('2d');
 
-    // Draw the cropped portion of the original canvas onto the cropped canvas
     croppedCtx.drawImage(canvas, 0, 0, width, cropHeight, 0, 0, width, cropHeight);
 
-    // Create the image buffer from the cropped canvas
+    // Create image buffer from the cropped canvas
     const imgBuffer = croppedCanvas.toBuffer("image/png");
 
     // Save the cropped image to a file
