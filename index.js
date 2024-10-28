@@ -1,4 +1,4 @@
-const { createCanvas, registerFont, loadImage, Image } = require("canvas");
+const { createCanvas, loadImage } = require("canvas");
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
@@ -11,20 +11,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.get("/test", async (req, res) => {
-    let cls = req.query.class;
+    const cls = req.query.class;
     const subject = req.query.subject;
     const cw = req.query.cw;
     const hw = req.query.hw;
     const remark = req.query.remarks;
-    const teacher = req.query.teacher || "Nabila Tabassum"; // Default teacher's name if not provided
-    const dateInput = req.query.date; // Date provided by user
+    const teacher = req.query.teacher || "Nabila Tabassum"; // Default teacher's name
 
     const width = 2480;
     const height = 3508;
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext("2d");
 
-    let bg = await loadImage("bg2.png");
+    const bg = await loadImage("bg2.png");
     ctx.drawImage(bg, 0, 0, width, height);
 
     ctx.font = "61px Arial";
@@ -38,10 +37,10 @@ app.get("/test", async (req, res) => {
     ctx.fillText(remark, 264, 1860);
     ctx.textAlign = "center";
 
-    // Use the provided date or default to current date if not specified
+    // Set date text: either from query or default to current date
     let dateText;
-    if (dateInput) {
-        dateText = `Date: ${dateInput}`;
+    if (req.query.date) {
+        dateText = `Date: ${req.query.date}`;
     } else {
         const currentDate = new Date();
         const day = String(currentDate.getDate()).padStart(2, '0');
@@ -56,7 +55,7 @@ app.get("/test", async (req, res) => {
     // Crop canvas to 3/5 of height
     const cropHeight = (height / 5) * 3;
     const croppedCanvas = createCanvas(width, cropHeight);
-    const croppedCtx = croppedCanvas.getContext('2d');
+    const croppedCtx = croppedCanvas.getContext("2d");
 
     croppedCtx.drawImage(canvas, 0, 0, width, cropHeight, 0, 0, width, cropHeight);
 
@@ -70,4 +69,4 @@ app.get("/test", async (req, res) => {
     res.sendFile(path.join(__dirname, "test.png"));
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(3000, () => console.log('API is listening on port 3000!'));
