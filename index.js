@@ -24,7 +24,7 @@ app.get("/test", async (req, res) => {
     const ctx = canvas.getContext("2d");
 
     // Load and draw the background image
-    const bg = await loadImage("/mnt/data/bg2.png");
+    const bg = await loadImage("bg2.png");
     ctx.drawImage(bg, 0, 0, width, height);
 
     // Set font and fill style
