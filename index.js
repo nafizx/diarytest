@@ -29,12 +29,12 @@ app.get("/test", async (req, res) => {
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
 
-    ctx.fillText(cls, 428, 736);
-    ctx.fillText(subject, 478, 867);
+    ctx.fillText(cls, 520, 736);
+    ctx.fillText(subject, 520, 867);
     ctx.fillText(teacher, 710, 994); // Teacher's name from query parameter
-    ctx.fillText(cw, 244, 1220);
-    ctx.fillText(hw, 244, 1628);
-    ctx.fillText(remark, 244, 1860);
+    ctx.fillText(cw, 290, 1220);
+    ctx.fillText(hw, 290, 1628);
+    ctx.fillText(remark, 290, 1860);
     ctx.textAlign = "center";
 
     // Set date text: either from query or default to current date
