@@ -29,12 +29,13 @@ app.get("/test", async (req, res) => {
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
 
-    ctx.fillText(cls, 448, 736);
-    ctx.fillText(subject, 498, 867);
-    ctx.fillText(teacher, 691, 994); // Teacher's name from query parameter
-    ctx.fillText(cw, 264, 1220);
-    ctx.fillText(hw, 264, 1628);
-    ctx.fillText(remark, 264, 1860);
+    // Adjusted the x positions to move the text left by 10 pixels
+    ctx.fillText(cls, 438, 736);        // Class text position
+    ctx.fillText(subject, 488, 867);     // Subject text position
+    ctx.fillText(teacher, 681, 994);     // Teacher's name position
+    ctx.fillText(cw, 254, 1220);         // CW text position
+    ctx.fillText(hw, 254, 1628);         // HW text position
+    ctx.fillText(remark, 254, 1860);     // Remark text position
     ctx.textAlign = "center";
 
     // Set date text: either from query or default to current date
@@ -50,7 +51,7 @@ app.get("/test", async (req, res) => {
         dateText = `Date: ${day}.${month}.${year} (${dayName})`;
     }
 
-    ctx.fillText(dateText, 1793, 736);
+    ctx.fillText(dateText, 1783, 736);   // Adjusted date text position
 
     // Crop canvas to 3/5 of height
     const cropHeight = (height / 5) * 3;
