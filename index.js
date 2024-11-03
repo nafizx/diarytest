@@ -11,11 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.get("/test", async (req, res) => {
-    const cls = req.query.class || "STD.III (Magnolia)";
-    const subject = req.query.subject || "Music";
-    const cw = req.query.cw || "Listening practice";
-    const hw = req.query.hw || "N/A";
-    const remark = req.query.remarks || "N/A";
+    const cls = req.query.class;
+    const subject = req.query.subject;
+    const cw = req.query.cw;
+    const hw = req.query.hw;
+    const remark = req.query.remarks;
     const teacher = req.query.teacher || "Nabila Tabassum"; // Default teacher's name
 
     const width = 2480;
@@ -23,22 +23,19 @@ app.get("/test", async (req, res) => {
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext("2d");
 
-    // Load and draw the background image
     const bg = await loadImage("bg2.png");
     ctx.drawImage(bg, 0, 0, width, height);
 
-    // Set font and fill style
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
-    ctx.textAlign = "left";
 
-    // Position each text field according to your requirements
-    ctx.fillText(cls, 400, 736);        // Class text position
-    ctx.fillText(subject, 400, 867);     // Subject text position
-    ctx.fillText(teacher, 400, 994);     // Teacher's name position
-    ctx.fillText(cw, 400, 1220);         // CW text position
-    ctx.fillText(hw, 400, 1628);         // HW text position
-    ctx.fillText(remark, 400, 1860);     // Remark text position
+    ctx.fillText(cls, 448, 736);
+    ctx.fillText(subject, 498, 867);
+    ctx.fillText(teacher, 691, 994); // Teacher's name from query parameter
+    ctx.fillText(cw, 264, 1220);
+    ctx.fillText(hw, 264, 1628);
+    ctx.fillText(remark, 264, 1860);
+    ctx.textAlign = "center";
 
     // Set date text: either from query or default to current date
     let dateText;
@@ -53,8 +50,7 @@ app.get("/test", async (req, res) => {
         dateText = `Date: ${day}.${month}.${year} (${dayName})`;
     }
 
-    // Date text position
-    ctx.fillText(dateText, 1700, 736);
+    ctx.fillText(dateText, 1793, 736);
 
     // Crop canvas to 3/5 of height
     const cropHeight = (height / 5) * 3;
