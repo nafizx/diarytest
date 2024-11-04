@@ -32,8 +32,8 @@ app.get("/test", async (req, res) => {
     ctx.fillText(cls, 365, 736);
     ctx.fillText(subject, 375, 867);
     ctx.fillText(teacher, 710, 994); // Teacher's name from query parameter
-    ctx.fillText(cw, 270, 1220);
-    ctx.fillText(hw, 270, 1628);
+    ctx.fillText(cw, 250, 1220);
+    ctx.fillText(hw, 250, 1628);
     ctx.fillText(remark, 270, 1860);
     ctx.textAlign = "center";
 
