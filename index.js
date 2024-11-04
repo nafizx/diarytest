@@ -26,7 +26,7 @@ app.get("/test", async (req, res) => {
     const bg = await loadImage("bg2.png");
     ctx.drawImage(bg, 0, 0, width, height);
 
-    ctx.font = "61px Arial";
+    ctx.font = "63px Arial";
     ctx.fillStyle = "#000000";
 
     ctx.fillText(cls, 375, 736);
