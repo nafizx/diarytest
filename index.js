@@ -29,8 +29,8 @@ app.get("/test", async (req, res) => {
     ctx.font = "61px Arial";
     ctx.fillStyle = "#000000";
 
-    ctx.fillText(cls, 300, 736);
-    ctx.fillText(subject, 320, 867);
+    ctx.fillText(cls, 350, 736);
+    ctx.fillText(subject, 360, 867);
     ctx.fillText(teacher, 710, 994); // Teacher's name from query parameter
     ctx.fillText(cw, 270, 1220);
     ctx.fillText(hw, 270, 1628);
