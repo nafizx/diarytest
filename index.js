@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -16,7 +17,7 @@ app.get("/test", async (req, res) => {
     const cw = req.query.cw;
     const hw = req.query.hw;
     const remark = req.query.remarks;
-    const teacher = req.query.teacher || "Nabila Tabassum"; // Default teacher's name
+    const teacher = req.query.teacher || "Nabila Tabassum";
 
     const width = 2480;
     const height = 3508;
@@ -31,13 +32,12 @@ app.get("/test", async (req, res) => {
 
     ctx.fillText(cls, 375, 739);
     ctx.fillText(subject, 425, 870);
-    ctx.fillText(teacher, 695, 997); // Teacher's name from query parameter
+    ctx.fillText(teacher, 695, 997);
     ctx.fillText(cw, 181, 1220);
     ctx.fillText(hw, 181, 1628);
     ctx.fillText(remark, 181, 1860);
     ctx.textAlign = "center";
 
-    // Set date text: either from query or default to current date
     let dateText;
     if (req.query.date) {
         dateText = `Date: ${req.query.date}`;
@@ -52,20 +52,15 @@ app.get("/test", async (req, res) => {
 
     ctx.fillText(dateText, 1793, 736);
 
-    // Crop canvas to 3/5 of height
     const cropHeight = (height / 5) * 3;
     const croppedCanvas = createCanvas(width, cropHeight);
     const croppedCtx = croppedCanvas.getContext("2d");
 
     croppedCtx.drawImage(canvas, 0, 0, width, cropHeight, 0, 0, width, cropHeight);
 
-    // Create image buffer from the cropped canvas
     const imgBuffer = croppedCanvas.toBuffer("image/png");
-
-    // Save the cropped image to a file
     fs.writeFileSync("test.png", imgBuffer);
 
-    // Send the cropped image as a response
     res.sendFile(path.join(__dirname, "test.png"));
 });
 
